@@ -7,7 +7,7 @@ intents = discord.Intents().all()
 intents.message_content = True
 client = discord.Client(intents=intents)
 
-channel_id = "1053925215266144329"
+channel_id = "your discord channel id"
 
 # 建立一个字典，用来储存每个使用者的聊天纪录
 chat_history = {}
@@ -68,7 +68,7 @@ async def on_message(message):
 
     # 使用 OpenAI API 回复使用者的訊息
     headers = {
-        "Authorization": "Bearer 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"
+        "Authorization": "your openai api"
     }
     data = {
     "model": model,
@@ -92,4 +92,4 @@ async def on_message(message):
 
     # 将使用者的聊天纪录加入聊天纪录中
     user_history.append(chat_content)
-client.run("OTYyMzc5ODkzNzQyNjM3MTM4.GebakN.le65jHaY-0Sxbq6tC9-90R31acLryJuPTn2nrI")
+client.run("your discord bot token")
