@@ -17,6 +17,14 @@ async def on_message(message):
     # 取得使用者 ID 和聊天内容
     user_id = message.author.id
     chat_content = message.content
+    # 如果訊息的格式符合 "AIclear"，則進行處理
+    if chat_content == "AIclear":
+        # 将使用者的聊天纪录清除
+        chat_history[user_id] = []
+        # 将文本傳回 Discord 频道
+        channel=client.get_channel(channel_id)
+        await message.channel.send("已清除聊天紀錄")
+        return
     # 如果訊息的格式符合 "AI" + 內容 + "，則進行處理
     if chat_content.startswith('AI"'):
         # 去除頭尾的双引號
@@ -39,7 +47,7 @@ async def on_message(message):
 
     # 使用 OpenAI API 回复使用者的訊息
     headers = {
-        "Authorization": "Bearer openaiapi"
+        "Authorization": "Bearer openaiAPI"
     }
     data = {
     "model": "text-davinci-003",
