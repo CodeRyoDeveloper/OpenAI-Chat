@@ -7,7 +7,7 @@ intents = discord.Intents().all()
 intents.message_content = True
 client = discord.Client(intents=intents)
 
-channel_id = "channel id"
+channel_id = "channelID"
 
 # 建立一个字典，用来储存每个使用者的聊天纪录
 chat_history = {}
@@ -15,15 +15,17 @@ chat_history = {}
 @client.event
 async def on_message(message):
     # 取得使用者 ID 和聊天内容
-
     user_id = message.author.id
-    # 只取 "AI" 後面的字串
     chat_content = message.content
-    # 如果聊天內容不是以 "AI" 開頭，則直接跳過
-    if not chat_content.startswith("AI"):
+    # 如果訊息的格式符合 "AI" + 內容 + "，則進行處理
+    if chat_content.startswith('AI"'):
+        # 去除頭尾的双引號
+        chat_content = chat_content.strip('"')
+        # 將字符串分割成三個部分，取出第二個部分的內容
+        chat_content = chat_content.split('"')[1]
+    else:
+        # 如果訊息的格式不符合，則跳過不處理
         return
-    # 取得聊天內容，並去掉頭尾的双引號
-    chat_content = chat_content.split("\"")[1]
     # 如果使用者 ID 不在字典中，則新增一个记录
     if user_id not in chat_history:
         chat_history[user_id] = []
@@ -37,7 +39,7 @@ async def on_message(message):
 
     # 使用 OpenAI API 回复使用者的訊息
     headers = {
-        "Authorization": "Bearer openapikey"
+        "Authorization": "Bearer openaiapi"
     }
     data = {
     "model": "text-davinci-003",
@@ -60,4 +62,4 @@ async def on_message(message):
 
     # 将使用者的聊天纪录加入聊天纪录中
     user_history.append(chat_content)
-client.run("bot token")
+client.run("token")
